@@ -62,13 +62,62 @@ x, y = y, x
 2. 대괄호를 사용해서 키의 값을 불러올 수 있다.
 3. 딕셔너리에 없는 키를 입력하면 KeyError가 발생한다.
    이를 dict.get()을 이용하여 키가 없는 경우 기본값을 반환할 수 있다.
+   이미 키가 있는 경우는 값이 새롭게 변하지 않는다.
+4. 여러 함수를 이용하여 모든 키를 한번에 살펴볼 수 있다.
+5. 키는 수정할 수 없으며 리스트를 키로 사용할 수 없다. 
+   다양한 키를 구성하려면 튜플이나 문자열을 이용한다. 
+6. dict["키"] = value 를 이용하여 추가할 수 있다.
 '''
 
 ## 1번 예시
 grades = {"Joel": 80, "Tim": 95}
 joel_grades = grades["Joel"]
+
 # print(joel_grades) # 80
 
 ## 3번 예시
 kate_grades = grades.get("Kate", 10)
 # print(kate_grades) # 10
+
+## 4번 예시
+tweet = {
+    "user" : "joelgrus",
+    "text" : "Data science is Awesome",
+    "retweet_count" : 100,
+    "hashtags" : ["data", "#scinece", "#datascience"]
+} # value가 많을 때는 리스트 형식으로 쓰는 듯
+
+# print(tweet.keys()) # key만 출력
+# print(tweet.values()) # value만 출력
+# print(tweet.items()) # key와 value를 tuple로 묶어서 리스트로 출력
+
+# 2.11.1 defaultdict
+
+# 단어의 빈도수를 세는 딕셔너리 만들기 
+document = []
+word_counts = {}
+for word in document:
+    if word in word_counts:
+        word_counts[word] += 1
+    else:
+        word_counts[word] = 1
+    # word_counts 라는 새로운 딕셔너리를 만들어서 그 값을 1 추가하는 방법
+
+'''
+1. defaultdict을 이용하여 존재하지 않는 키를 자동으로 추가해줄 수 있다.
+2. 이를 이용하려면 collections에서 모듈을 불러와야 한다. 
+3. 리스트, 딕셔너리, 함수를 인자에 넣어줄 수 있다.
+'''
+from collections import defaultdict
+
+word_counts = {}
+for word in document:
+    word_counts[word] += 1
+
+# 이렇게 간단하게 작성할 수 있다.
+
+## 3번 예시
+dd_list = defaultdict(list)
+dd_list[2].append(1) # dd_list는 {2:[1]} 포함
+dd_dict = defaultdict(dict)
+dd_dict["Joel"]["city"] = "Seattle" # {"Joel" : {"city": "Seattle"}} 생성
